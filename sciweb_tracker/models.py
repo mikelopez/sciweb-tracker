@@ -12,5 +12,7 @@ class LinkTracking(models.Model):
     item_type = models.CharField(max_length=20, blank=True, null=True)
     item_id = models.IntegerField(blank=True, null=True)
     item_ctype = models.CharField(max_length=30, blank=True, null=True)
+    counter = models.IntegerField(default=0, blank=True, null=True)
+    admin = models.NullBooleanField(default=False)
 
 
