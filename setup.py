@@ -11,7 +11,7 @@ setup(
     author_email='',
     url='',
     license='MIT',
-    package_dir={'sciweb-tracker': 'sciweb-tracker'},
+    package_dir={'sciweb_tracker': 'sciweb_tracker'},
     include_package_data=True,
     packages=find_packages(),
     zip_safe=False,
