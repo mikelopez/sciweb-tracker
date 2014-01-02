@@ -1,0 +1,2 @@
+from sciweb_tracker.tests.trackvisits import TrackVisitTypes
+from sciweb_tracker.tests.trackclicks import TestTrackClicks

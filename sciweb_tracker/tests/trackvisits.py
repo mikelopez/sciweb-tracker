@@ -1,8 +1,9 @@
 from django.test import TestCase
+from base import *
 
 TEST_SITE = 'test.com'
 
-class TrackVisitsTypes(TrackerBase):
+class TrackVisitTypes(TrackerBase):
 
     def test_track_visit_types(self):
         """
