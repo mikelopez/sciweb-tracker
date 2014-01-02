@@ -7,7 +7,7 @@ Groups unique sessions together for better reporting. This is based more on foll
 API
 ====
  * ``sid``  SID is the unique session ID to map multiple tracking records to a single session to better track user behavior.
- * ``action`` Action is either view or item
+ * ``action`` Action is either view or click
  * ``name``  A name(campaign, page, product or link name),
  * ``domain``  Domain / website (with no http:// or www)
  * ``path``  Path of the url requested

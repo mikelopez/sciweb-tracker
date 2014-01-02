@@ -16,6 +16,18 @@ class TrackerBase(TrackerBase):
 		'created': '',
 		'redirect_to': ''
     }
+    session = ''
+
+    def trackset(self, k, v):
+    	"""Quick setter"""
+    	self.track[k] = v
+
+   	def dovisit(self, data=None):
+   		"""Perform simulated visit."""
+   		if not data:
+   			data = self.track
+   		self.trackset('action', 'view')
+   		return Tracking.objects.trackit(**data)
 
     def reset_track(self):
     	"""A user goes to test.com/page2."""
@@ -25,4 +37,5 @@ class TrackerBase(TrackerBase):
             'path': 'page2',
             'pageid': 567,
             'action': '',
-            'ipaddress': '10.10.10.1',
+            'ipaddress': '10.10.10.1'
+        }

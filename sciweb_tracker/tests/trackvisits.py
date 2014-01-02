@@ -11,27 +11,22 @@ class TrackVisitsTypes(TrackerBase):
         self.reset_track()
         track = self.track
         track['action'] = 'view'
-
-        # new unique visit / entrance
-        t = Tracking.objects.trackit(**track)
-        track['sid'] = 'session456'
-        track['ipaddress'] = '10.10.10.2'
-        t2 = Tracking.objects.trackit(**track)
-        # same ip = +1 pageviews
-        track['pageid'] = 444
-        track['path'] = 'index'
-        t3 = Tracking.objects.trackit(**track)
-        # same session / ip = +1 pageview
-        track['sid'] = 'session123'
-        track['ipaddress'] = '10.10.10.1'
-        track['path'] = 'landing-page4'
-        track['pageid'] = 543
-        t4 = Tracking.objects.trackit(**track)
-        # new entrance to site with same IP / new session
-        track['sid'] = 'session999'
-        track['ipaddress'] = '10.10.10.1'
-        t5 = Tracking.objects.trackit(**track)
-
+        c1 = '10.10.10.1'
+        c2 = '10.10.10.2'
+        visits = [
+        	# new unique visit / entrance
+        	{'sid': '123', 'ipaddress': c1, 'path': 'page1'},
+        	{'sid': '999', 'ipaddress': c2, 'path': 'page2'},
+        	{'sid': '999', 'ipaddress': c2, 'path': 'index'},
+        	# same session / ip = +1 pageview
+        	{'sid': '123', 'ipaddress': c1, 'path': 'page4'},
+        	# new entrance to site with same IP / new session
+        	{'sid': 'XXX', 'ipaddress': c1, 'path': 'page1'}
+        ]
+        # track the visits
+        for v in visits:
+        	self.dovisit(data=v)
+        	
         self.assertEquals(Tracking.objects.count_uniques(), 2)
         self.assertEquals(Tracking.objects.count_entrances(), 3)
         self.assertEquals(Tracking.objects.count_pageviews(), 4)
