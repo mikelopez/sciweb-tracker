@@ -13,7 +13,7 @@ class Tracking(models.Model):
     Track some stuff.
     """
     sid = models.CharField(max_length=100, default='direct')
-    action = models.ChatFirled(max_length=10)
+    action = models.CharField(max_length=10)
     domain = models.CharField(max_length=100)
     path = models.CharField(max_length=50, blank=True, null=True)
     pageid = models.IntegerField(blank=True, null=True)
