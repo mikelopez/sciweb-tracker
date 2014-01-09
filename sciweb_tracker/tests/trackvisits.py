@@ -1,4 +1,3 @@
-from django.test import TestCase
 from base import *
 
 TEST_SITE = 'test.com'

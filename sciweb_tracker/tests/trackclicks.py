@@ -14,9 +14,9 @@ class TestTrackClicks(TrackerBase):
 	"""
 	def __simulate_sample_visit(self, **kwargs):
 		"""simlates a sample visit so we can get a session."""
-		self.settrack('path', 'index')
-		self.settrack('ipaddress', '10.10.10.1')
-		self.settrack('session', 'SESSION123')
+		self.trackset('path', 'index')
+		self.trackset('ipaddress', '10.10.10.1')
+		self.trackset('session', 'SESSION123')
 		# set any overrides
 		if kwargs:
 			for k, v in kwargs.items():
@@ -60,7 +60,7 @@ class TestTrackClicks(TrackerBase):
 			                         path='page123')
 
 		
-
+		self.__do_click_link()
 		
 		# another user hits page1, then back to index, then clicks the link
 		# should have 3 pageviews, 2 uniques, 2 entrances
