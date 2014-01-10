@@ -26,11 +26,31 @@ API
 Examples
 =========
 
-* Adding a new site visit / entrance 
+* Adding a new site visit / entrance (unique IP is not found, entrance if SID is not found)
 .. code-block:: python
 
     t = Tracking.objects.trackit(sid='xxxxxx', action='view', name='campaign1', 
                                  domain='mysite.com', path='page2.html', 
                                  page_id=123, ipaddress='x.x.x.x', ua='USER_AGENT')
 
+
+* Adding an additional pageview
+(If action=view && session/ip/path are same within 5 min, append counter instead of creating a new object)
+
+.. code-block:: python
+
+    t = Tracking.objects.trackit(sid='xxxxxx', action='view', name='campaign1', 
+                                 domain='mysite.com', path='page5.html', 
+                                 page_id=123, ipaddress='x.x.x.x', ua='USER_AGENT')
+
+
+* Recording a click event on item & redirect
+(If the item, item_id, and domain are same, it will increment the counter. )
+
+.. code-block:: python
+
+    t = Tracking.objects.trackit(sid='abc123', action='click', name='campaign1', 
+                                 domain='mysite.com', path='page10.html', 
+                                 item_type='banner', item_ctype='banners',
+                                 item_id=123, ipaddress='x.x.x.x', ua='USER_AGENT')
 
