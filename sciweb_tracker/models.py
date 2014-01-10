@@ -11,25 +11,37 @@ class TrackingManager(models.Manager):
         t = Tracking(**kwargs)
         t.save()
 
+    @classmethod
+    def getdistinct(self, distinct_field, **kwargs):
+        """mysql no likey distinct-on because fuck you. """
+        q = []
+        dups = []
+        for i in Tracking.objects.filter(**kwargs):
+            if not getattr(i, distinct_field) in dups:
+                dups.append(getattr(i, distinct_field))
+                q.append(i)
+        return q
+
+
+
     @classmethod 
     def get_uniques(self, **kwargs):
         """Get the unique visits by distinct ip address."""
         kwargs['action'] = 'view'
-        return Tracking.objects.filter(**kwargs)\
-                .values_list('ipaddress', flat=True).distinct().count()
-        
+        return len(self.getdistinct('ipaddress', **kwargs))
+
         
     @classmethod 
     def get_entrances(self, **kwargs):
         """Figure out the entrances."""
         kwargs['action'] = 'view'
-        return Tracking.objects.filter(**kwargs).distinct('sid').count()
-
+        return len(self.getdistinct('sid', **kwargs))
+        
     @classmethod
     def get_pageviews(self, **kwargs):
         """Figure out the page views."""
         kwargs['action'] = 'view'
-        return Tracking.objects.filter(**kwargs).count()
+        return len(Tracking.objects.filter(**kwargs))
 
     @classmethod 
     def get_by_item(self, itype, iid, **kwargs):

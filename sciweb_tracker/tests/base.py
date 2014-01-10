@@ -31,7 +31,7 @@ class TrackerBase(TestCase):
         """Perform simulated visit."""
         if not data:
       		data = self.track
-        self.trackset('action', 'view')
+        data['action'] = 'view'
         return Tracking.objects.trackit(**data)
 
     def reset_track(self):
