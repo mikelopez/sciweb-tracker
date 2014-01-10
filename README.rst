@@ -23,16 +23,18 @@ API
  * ``redirect_to``  If redirect_to has a url, we are redirecting to that url after tracking.
 
 
- Installing
- ===========
- Add a TRACK_IT bool to your settings.py file. 
- Use the following import statement to flick TRACK_IT to False if any issues occur.
+Installing
+===========
 
- .. code-block:: python
- try:
-    from sciweb_tracker import *
-except ImportError:
-    TRACK_IT = False
+Add a TRACK_IT bool to your settings.py file. 
+Use the following import statement to flick TRACK_IT to False if any issues occur.
+
+.. code-block:: python
+
+    try:
+        from sciweb_tracker import *
+    except ImportError:
+        TRACK_IT = False
 
 
 
