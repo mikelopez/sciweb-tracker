@@ -15,20 +15,20 @@ class TrackVisitTypes(TrackerBase):
         c2 = '10.10.10.2'
         visits = [
         	# new unique visit / entrance
-        	{'sid': '123', 'ipaddress': c1, 'path': 'page1'},
-        	{'sid': '999', 'ipaddress': c2, 'path': 'page2'},
-        	{'sid': '999', 'ipaddress': c2, 'path': 'index'},
+        	{'sid': '123', 'ipaddress': c1, 'path': 'page1', 'action': 'pageview'},
+        	{'sid': '999', 'ipaddress': c2, 'path': 'page2', 'action': 'pageview'},
+        	{'sid': '999', 'ipaddress': c2, 'path': 'index', 'action': 'pageview'},
         	# same session / ip = +1 pageview
-        	{'sid': '123', 'ipaddress': c1, 'path': 'page4'},
+        	{'sid': '123', 'ipaddress': c1, 'path': 'page4', 'action': 'pageview'},
         	# new entrance to site with same IP / new session
-        	{'sid': 'XXX', 'ipaddress': c1, 'path': 'page1'}
+        	{'sid': 'XXX', 'ipaddress': c1, 'path': 'page1', 'action': 'pageview'}
         ]
         # track the visits
         for v in visits:
         	self.dovisit(data=v)
         	
-        self.assertEquals(Tracking.objects.count_uniques(), 2)
-        self.assertEquals(Tracking.objects.count_entrances(), 3)
-        self.assertEquals(Tracking.objects.count_pageviews(), 4)
+        self.assertEquals(Tracking.objects.get_uniques(), 2)
+        self.assertEquals(Tracking.objects.get_entrances(), 3)
+        self.assertEquals(Tracking.objects.get_pageviews(), 5)
 
 

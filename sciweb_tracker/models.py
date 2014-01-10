@@ -5,7 +5,38 @@ Track and keep logs of what people do
 """
 
 class TrackingManager(models.Manager):
-    pass
+    @classmethod
+    def trackit(self, *args, **kwargs):
+        """Log the tracking object."""
+        t = Tracking(**kwargs)
+        t.save()
+
+    @classmethod 
+    def get_uniques(self, **kwargs):
+        """Get the unique visits by distinct ip address."""
+        kwargs['action'] = 'view'
+        return Tracking.objects.filter(**kwargs)\
+                .values_list('ipaddress', flat=True).distinct().count()
+        
+        
+    @classmethod 
+    def get_entrances(self, **kwargs):
+        """Figure out the entrances."""
+        kwargs['action'] = 'view'
+        return Tracking.objects.filter(**kwargs).distinct('sid').count()
+
+    @classmethod
+    def get_pageviews(self, **kwargs):
+        """Figure out the page views."""
+        kwargs['action'] = 'view'
+        return Tracking.objects.filter(**kwargs).count()
+
+    @classmethod 
+    def get_by_item(self, itype, iid, **kwargs):
+        """Get a track by item id and type"""
+        return Tracking.objects.filter(action='click', item_type=itype, 
+                                       item_id=iid, **kwargs)
+
 
 
 class Tracking(models.Model):
