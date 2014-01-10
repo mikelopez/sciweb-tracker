@@ -11,7 +11,7 @@ API
  * ``name``  A name(campaign, page, product or link name),
  * ``domain``  Domain / website (with no http:// or www)
  * ``path``  Path of the url requested
- * ``page_id`` ID of the page (Incase the name or url ever changes)
+ * ``pageid`` ID of the page (Incase the name or url ever changes)
  * ``item_type``  An item type (link, banner, product, page, redirect, etc)
  * ``item_id``  ID of the item being tracked (banner, product, link, page, etc)
  * ``item_ctype``  Content Type name
@@ -47,7 +47,7 @@ Examples
     if TRACK_IT:
         t = Tracking.objects.trackit(sid='xxxxxx', action='view', name='campaign1', 
                                      domain='mysite.com', path='page2.html', 
-                                     page_id=123, ipaddress='x.x.x.x', ua='USER_AGENT')
+                                     pageid=123, ipaddress='x.x.x.x', ua='USER_AGENT')
 
 
 * Adding an additional pageview
@@ -58,7 +58,7 @@ Examples
     if TRACK_IT:
         t = Tracking.objects.trackit(sid='xxxxxx', action='view', name='campaign1', 
                                     domain='mysite.com', path='page5.html', 
-                                    page_id=123, ipaddress='x.x.x.x', ua='USER_AGENT')
+                                    pageid=123, ipaddress='x.x.x.x', ua='USER_AGENT')
 
 
 * Record a click event on item & redirect
