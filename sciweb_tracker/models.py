@@ -58,6 +58,7 @@ class Tracking(models.Model):
     sid = models.CharField(max_length=100, default='direct')
     action = models.CharField(max_length=10)
     domain = models.CharField(max_length=100)
+    name = models.CharField(max_length=30, blank=True, null=True)
     path = models.CharField(max_length=50, blank=True, null=True)
     pageid = models.IntegerField(blank=True, null=True)
     item_type = models.CharField(max_length=20, blank=True, null=True)
