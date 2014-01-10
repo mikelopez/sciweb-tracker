@@ -13,7 +13,9 @@ class TrackingManager(models.Manager):
             t = Tracking.objects.filter(**kwargs)
             # update existing...refresher..
             if (datetime.now() - t.created).seconds <= 300:
-                t = setattr(t[0], 'counter', (getattr(t[0], 'counter', 0) + 1))
+                t = t[0]
+                setattr(t, 'counter', (getattr(t, 'counter', 0) + 1))
+                t.save()
             else:
                 # or add new record
                 t = Tracking(**kwargs)
