@@ -11,6 +11,7 @@ API
  * ``name``  A name(campaign, page, product or link name),
  * ``domain``  Domain / website (with no http:// or www)
  * ``path``  Path of the url requested
+ * ``referer`` Where its coming from
  * ``pageid`` ID of the page (Incase the name or url ever changes)
  * ``item_type``  An item type (link, banner, product, page, redirect, etc)
  * ``item_id``  ID of the item being tracked (banner, product, link, page, etc)

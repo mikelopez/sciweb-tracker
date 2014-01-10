@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from django.db import models
 
 """
@@ -8,8 +9,19 @@ class TrackingManager(models.Manager):
     @classmethod
     def trackit(self, *args, **kwargs):
         """Log the tracking object."""
-        t = Tracking(**kwargs)
-        t.save()
+        try:
+            t = Tracking.objects.filter(**kwargs)
+            # update existing...refresher..
+            if (datetime.now() - t.created).seconds <= 300:
+                t = setattr(t[0], 'counter', (getattr(t[0], 'counter', 0) + 1))
+            else:
+                # or add new record
+                t = Tracking(**kwargs)
+                t.save()
+        except:
+            t = Tracking(**kwargs)
+            t.save()
+
 
     @classmethod
     def getdistinct(self, distinct_field, **kwargs):
@@ -61,6 +73,7 @@ class Tracking(models.Model):
     name = models.CharField(max_length=30, blank=True, null=True)
     path = models.CharField(max_length=50, blank=True, null=True)
     pageid = models.IntegerField(blank=True, null=True)
+    referer = models.CharField(max_length=100, blank=True, null=True, default='direct')
     item_type = models.CharField(max_length=20, blank=True, null=True)
     item_id = models.IntegerField(blank=True, null=True)
     item_ctype = models.CharField(max_length=30, blank=True, null=True)
