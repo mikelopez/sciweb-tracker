@@ -23,3 +23,14 @@ API
  * ``redirect_to``  If redirect_to has a url, we are redirecting to that url after tracking.
 
 
+Examples
+=========
+
+* Adding a new site visit / entrance 
+.. code-block:: python
+
+    t = Tracking.objects.trackit(sid='xxxxxx', action='view', name='campaign1', 
+                                 domain='mysite.com', path='page2.html', 
+                                 page_id=123, ipaddress='x.x.x.x', ua='USER_AGENT')
+
+

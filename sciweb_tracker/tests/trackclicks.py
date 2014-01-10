@@ -50,7 +50,7 @@ class TestTrackClicks(TrackerBase):
         self.__do_click_link()
 
         # should have 1 unique, 1 entrance, 1 pageview, and 1 click on our link
-        self.assertEquals(Tracking.objects.get_uniques(), int(1))
+        self.assertEquals(Tracking.objects.get_uniques(domain="test1.com"), int(1))
         self.assertEquals(Tracking.objects.get_entrances(domain="test1.com"), int(1))
         self.assertEquals(Tracking.objects.get_pageviews(domain="test1.com"), int(1))
 
