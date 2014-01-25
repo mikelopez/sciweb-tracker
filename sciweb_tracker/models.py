@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import pytz
 from django.db import models
 
 """
@@ -9,20 +10,25 @@ class TrackingManager(models.Manager):
     @classmethod
     def trackit(self, *args, **kwargs):
         """Log the tracking object."""
-        try:
-            t = Tracking.objects.filter(**kwargs)
-            # update existing...refresher..
+
+        t = Tracking.objects.filter(**kwargs)
+        # update existing...refresher..
+        if len(t) > 0:
+            t = t[0]
             if (datetime.now() - t.created).seconds <= 300:
-                t = t[0]
                 setattr(t, 'counter', (getattr(t, 'counter', 0) + 1))
                 t.save()
             else:
                 # or add new record
+                kwargs['created'] = datetime.now()
                 t = Tracking(**kwargs)
                 t.save()
-        except:
+        else:
+            # or add new record
+            kwargs['created'] = datetime.now()
             t = Tracking(**kwargs)
-            t.save()
+            t.save()  
+
 
 
     @classmethod
@@ -83,7 +89,7 @@ class Tracking(models.Model):
     ipaddress = models.CharField(max_length=20, blank=True, null=True)
     admin = models.NullBooleanField(default=False)
     ua = models.TextField(blank=True, null=True)
-    created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    created = models.DateTimeField(blank=True, null=True)
     redirect_to = models.TextField(blank=True, null=True)
     objects = TrackingManager()
 
